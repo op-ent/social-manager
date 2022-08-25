@@ -9,7 +9,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const { colorMode } = useColorMode();
   return (
     <div className="flex h-full">
-      <div className="w-64">
+      <div className="w-64 shrink-0">
         <div
           className={clsx(
             "fixed h-screen w-64 border-r p-2 z-50",

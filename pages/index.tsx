@@ -3,15 +3,24 @@ import React from "react";
 import { client } from "~/lib/client";
 
 const Home: NextPage = () => {
-  const [data, setData] = React.useState<object | undefined>(undefined);
+  const [data, setData] = React.useState<any>(undefined);
   const onClick = async () => {
-    const tweet = await client.twitter.tweet("Hello World!");
-    setData(tweet);
+    // const data = await client.twitter.tweet("Hello World!");
+    const data = await client.twitter.timeline();
+    setData(data);
   };
   return (
     <div>
       <button onClick={onClick}>Tweet</button>
-      {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
+      {data && (
+        <pre>
+          {JSON.stringify(
+            (data._realData as any[]).map((x) => x.full_text),
+            null,
+            2
+          )}
+        </pre>
+      )}
     </div>
   );
 };
