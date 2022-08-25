@@ -1,19 +1,16 @@
-import { Button } from "flowbite-react";
 import type { NextPage } from "next";
 import React from "react";
-import LoginButton from "~/components/LoginButton";
+import { client } from "~/lib/client";
 
 const Home: NextPage = () => {
   const [data, setData] = React.useState<object | undefined>(undefined);
   const onClick = async () => {
-    const res = await fetch("/api/providers/twitter");
-    const data = await res.json();
-    setData(data);
+    const tweet = await client.twitter.tweet("Hello World!");
+    setData(tweet);
   };
   return (
     <div>
-      <LoginButton />
-      <Button onClick={onClick}>Tweet</Button>
+      <button onClick={onClick}>Tweet</button>
       {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
     </div>
   );
